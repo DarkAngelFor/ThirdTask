@@ -26,7 +26,6 @@ public class UserDaoHibernateImpl implements UserDao {
                     "lastname VARCHAR(50), " +
                     "age tinyint, " +
                     "PRIMARY KEY (id))").executeUpdate();
-            System.out.println("Таблица создана");
         } catch (HibernateException e) {
             e.printStackTrace();
         }
@@ -38,7 +37,6 @@ public class UserDaoHibernateImpl implements UserDao {
         try (Session session = Util.getSessionFactory().openSession()){
             session.beginTransaction();
             session.createSQLQuery("DROP TABLE IF EXISTS user").executeUpdate();
-            System.out.println("Таблица удалена");
         } catch (HibernateException e) {
             e.printStackTrace();
         }
@@ -67,7 +65,6 @@ public class UserDaoHibernateImpl implements UserDao {
             transaction = session.beginTransaction();
             session.delete(session.get(User.class, id));
             transaction.commit();
-            System.out.println("User удален");
         } catch (HibernateException e) {
             e.printStackTrace();
             if (transaction != null) {
@@ -90,7 +87,6 @@ public class UserDaoHibernateImpl implements UserDao {
             transaction = session.beginTransaction();
             session.createSQLQuery("TRUNCATE TABLE user;").executeUpdate();
             transaction.commit();
-            System.out.println("Таблица очищена");
         } catch (HibernateException e) {
             e.printStackTrace();
             if (transaction != null) {
