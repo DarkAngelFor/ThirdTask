@@ -3,9 +3,15 @@ package jm.task.core.jdbc.dao;
 import jm.task.core.jdbc.model.User;
 import jm.task.core.jdbc.util.Util;
 import org.hibernate.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.List;
 
 public class UserDaoHibernateImpl implements UserDao {
+
+    private static final Logger log = LoggerFactory.getLogger(UserDaoHibernateImpl.class);
+
     public UserDaoHibernateImpl() {
 
     }
@@ -45,7 +51,7 @@ public class UserDaoHibernateImpl implements UserDao {
             transaction = session.beginTransaction();
             session.save(new User(name, lastName, age));
             transaction.commit();
-            System.out.println("User с именем – " + name + " добавлен в базу данных");
+            log.info("User с именем — {} добавлен в базу данных", name);
         } catch (HibernateException e) {
             e.printStackTrace();
             if (transaction != null) {
